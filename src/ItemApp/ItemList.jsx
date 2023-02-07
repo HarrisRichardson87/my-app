@@ -1,10 +1,9 @@
-import Button from '@mui/material/Button';
 import React, { Component } from 'react'
 import Item from './Item/Item';
-import Table from '@mui/material/Table';
+import { TableContainer, Paper, Table, Button } from '@mui/material';
 import styles from "./ItemList.module.css";
 import DialogAddItem from './DialogAddItem/DialogAddItem';
-
+import RefreshIcon from '@mui/icons-material/Refresh';
 export class ItemObject{
     constructor(name){
         this.name = name;
@@ -46,10 +45,10 @@ export default class FileName extends Component {
     }
 
     getNextIndex(deletedItemIndex){
-        // If we deleted the first Item keep at the first item
+        // If we deleted the first Item keep first item select
         if(deletedItemIndex === 0)
             return deletedItemIndex;
-        return deletedItemIndex - 1; // if not go to next index down
+        return deletedItemIndex - 1; // if not go to next next item up
     }
 
     saveLastDeletedItem(lastDeletedItem, lastItemDeletedIndex){
@@ -92,12 +91,15 @@ export default class FileName extends Component {
         const { items, selectedItemIndex, openAddDialog, lastItemDeletedIndex } = this.state;
         return(
             <div className={styles.itemList}>
-                <Table>
-                    { items.map((x, i) => <Item index={i} item={x} onSelect={this.handleSelect} isSelected={selectedItemIndex === i}/> )}
-                </Table>
+                <TableContainer component={Paper}>
+                    <Table>
+                        { items.map((x, i) => <Item index={i} item={x} onSelect={this.handleSelect} isSelected={selectedItemIndex === i}/> )}
+                    </Table>
+                </TableContainer>
+
                 <div className={styles.buttonGroup}>
                     <div className={styles.buttonsDelete}>
-                        <Button disabled={lastItemDeletedIndex === -1} variant='outlined'  onClick={this.handleUndoDelete}> Undo </Button>
+                        <Button startIcon={<RefreshIcon/>} disabled={lastItemDeletedIndex === -1} variant='outlined'  onClick={this.handleUndoDelete}> Undo </Button>
                         <Button variant='outlined'  onClick={this.handleDelete}> Delete </Button>
                     </div>
                     <div className={styles.buttonsAdd}>

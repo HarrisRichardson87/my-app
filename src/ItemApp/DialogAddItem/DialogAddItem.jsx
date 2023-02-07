@@ -33,13 +33,13 @@ export default class DialogAddItem extends Component {
         const { name, error } = this.state;
         return (
             <Dialog open={open}>
-                <DialogTitle>Add Item</DialogTitle>
+                <DialogTitle>Add Item to your list</DialogTitle>
                 <DialogContent>
                     { error && <Alert severity='error'>{error}</Alert>}
-                    <TextField value={name} onChange={this.handleInput}/>
+                    <TextField placeholder='Type item name here' variant="filled" value={name} onChange={this.handleInput}/>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant='contained' onClick={this.handleSave}>Save</Button>
+                    <Button variant='contained' onClick={this.handleSave}>Add</Button>
                     <Button variant='outlined' onClick={onClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>

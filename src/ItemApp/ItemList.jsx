@@ -58,7 +58,7 @@ export default class FileName extends Component {
     }
 
     handleUndoDelete = () => {
-        // Use the selected index
+        // Use the deleted items index
         const { lastItemDeletedIndex } = this.state;
         const lastDeletedItem = {...this.state.lastDeletedItem};
 
@@ -68,7 +68,7 @@ export default class FileName extends Component {
         // Put last deleted item back in the list at correct spot
         items.splice(lastItemDeletedIndex, 0, lastDeletedItem); 
 
-        // Update Items and reset last delted item
+        // Update Items and reset last deleted item
         this.setState({ items, lastItemDeletedIndex: -1, lastDeletedItem: null });
     }
 
@@ -82,8 +82,8 @@ export default class FileName extends Component {
         // Copy the list
         const items = [...this.state.items];
 
-        // Remove Clicked item
-        items.push(item); // Removes at index 1 item in array
+        // Add item to your list
+        items.push(item); 
 
         // Update Items
         this.setState({ items });

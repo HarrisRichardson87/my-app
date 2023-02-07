@@ -8,6 +8,9 @@ export default class DialogAddItem extends Component {
     };
 
     handleInput = (e) => {
+        // turn off error if user started inputing text
+        if(e.target.value !== "")
+            this.setState({ error: null });
         this.setState({ name: e.target.value});
     }
 
@@ -28,6 +31,13 @@ export default class DialogAddItem extends Component {
         this.props.onClose();
     }
 
+    showError(){
+        const { name, error } = this.state;
+        
+        // User tried to save blank and input is still blank
+        return error && name === "";
+    }
+
     render() {
         const { open, onClose } = this.props;
         const { name, error } = this.state;
@@ -35,12 +45,12 @@ export default class DialogAddItem extends Component {
             <Dialog open={open}>
                 <DialogTitle>Add Item to your list</DialogTitle>
                 <DialogContent>
-                    { error && <Alert severity='error'>{error}</Alert>}
+                    { this.showError() && <Alert severity='error'>{error}</Alert>}
                     <TextField placeholder='Type item name here' variant="filled" value={name} onChange={this.handleInput}/>
                 </DialogContent>
                 <DialogActions>
                     <Button variant='contained' onClick={this.handleSave}>Add</Button>
-                    <Button variant='outlined' onClick={onClose}>Cancel</Button>
+                    <Button variant='outlined'  onClick={onClose}>Cancel</Button>
                 </DialogActions>
             </Dialog>
         )
